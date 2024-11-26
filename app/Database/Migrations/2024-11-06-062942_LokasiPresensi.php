@@ -30,11 +30,11 @@ class LokasiPresensi extends Migration
                 'constraint' => '255',
 
             ],
-            'lalitude' => [
+            'latitude' => [
                 'type' => 'VARCHAR',
                 'constraint' => '50',
             ],
-            'longetude' => [
+            'longitude' => [
                 'type' => 'VARCHAR',
                 'constraint' => '50',
 

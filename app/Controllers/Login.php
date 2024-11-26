@@ -34,11 +34,22 @@ class Login extends BaseController
            $username = $this->request->getVar('username');
            $password = $this->request->getVar('password');
            $cekusername = $loginModel->where('username', $username)->first();
+
+        
          
            if ($cekusername) {
                $password_db = $cekusername['password'];
                $cek_password = password_verify($password, $password_db);
                if($cek_password) {
+
+
+                    $session_data = [
+                        'username'  => $cekusername['username'],
+                        'logged_in' => TRUE,
+                        'role_id'   => $cekusername['role'],
+                        'id_pegawai' => $cekusername['id']
+                    ];
+                    $session ->set($session_data);
                   switch ($cekusername['role']) {
                     case "Admin":
                         return redirect()->to('admin/home');
@@ -58,5 +69,12 @@ class Login extends BaseController
                 return redirect()->to('/');
            }
        }
+    }
+
+    public function logout()
+    {
+        $session = session();
+        $session->destroy();
+        return redirect()->to('/');
     }
 }
